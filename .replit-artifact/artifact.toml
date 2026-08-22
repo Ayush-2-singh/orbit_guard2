@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Ingridea"
+version = "1.0.0"
+id = "artifacts/ingridea"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21233
+
+[services.development]
+run = "pnpm --filter @workspace/ingridea run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ingridea", "run", "build" ]
+publicDir = "artifacts/ingridea/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21233"
+BASE_PATH = "/"
