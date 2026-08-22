@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import StarsCanvas from "@/components/StarsCanvas";
 import { motion } from "framer-motion";
 import { useEscalation } from "@/contexts/EscalationContext";
+import { useToast } from "@/hooks/use-toast";
 import ConfirmAction from "@/components/ConfirmAction";
 
 const capabilities = [
@@ -28,9 +29,11 @@ function fadeUp(delay = 0) {
 }
 
 export default function CapabilitiesPage() {
-  const { getConfirmationMeta } = useEscalation();
+  const { getConfirmationMeta, addLogEntry } = useEscalation();
+  const { toast } = useToast();
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [confirmMeta, setConfirmMeta] = useState<ReturnType<typeof getConfirmationMeta> | null>(null);
+  const [subscribed, setSubscribed] = useState(false);
 
   const handleSubscribeAlerts = useCallback(() => {
     const meta = getConfirmationMeta("SYSTEM", "subscribe-alerts");
@@ -54,9 +57,9 @@ export default function CapabilitiesPage() {
             whileTap={{ scale: 0.97 }}
             onClick={handleSubscribeAlerts}
             className="mt-6 mx-auto px-8 py-3 rounded-full font-sans font-semibold text-sm tracking-wider text-white cursor-pointer block"
-            style={{ backdropFilter: "blur(20px)", background: "rgba(56,189,248,0.12)", border: "1px solid rgba(56,189,248,0.35)" }}
+            style={{ backdropFilter: "blur(20px)", background: subscribed ? "rgba(34,197,94,0.12)" : "rgba(56,189,248,0.12)", border: `1px solid ${subscribed ? "rgba(34,197,94,0.4)" : "rgba(56,189,248,0.35)"}` }}
           >
-            🔔 Subscribe to Real-Time Alerts →
+            {subscribed ? "✓ Alerts Active" : "🔔 Subscribe to Real-Time Alerts →"}
           </motion.button>
         </motion.div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -135,7 +138,20 @@ export default function CapabilitiesPage() {
       </section>
 
       {/* Confirm Dialog */}
-      <ConfirmAction open={confirmOpen} meta={confirmMeta} onConfirm={() => setConfirmOpen(false)} onCancel={() => setConfirmOpen(false)} />
+      <ConfirmAction open={confirmOpen} meta={confirmMeta} onConfirm={() => {
+        setSubscribed(true);
+        addLogEntry({
+          id: crypto.randomUUID(),
+          satelliteId: "SYSTEM",
+          action: "subscribe-alerts",
+          level: "Normal",
+        });
+        toast({
+          title: "🔔 Alerts Subscribed",
+          description: "Real-time conjunction and collision alerts are now active for your filter criteria. You'll receive dashboard, email, and push notifications.",
+        });
+        setConfirmOpen(false);
+      }} onCancel={() => setConfirmOpen(false)} />
 
       {/* Roadmap */}
       <section className="relative z-10 py-20 px-6 max-w-4xl mx-auto pb-32">

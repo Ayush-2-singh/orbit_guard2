@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { Link } from "wouter";
 import gsap from "gsap";
 import StarsCanvas from "./StarsCanvas";
 
@@ -85,16 +86,20 @@ export default function HeroSection() {
             AI-powered orbital intelligence for tracking satellites, monitoring debris,<br className="hidden sm:block" /> predicting collision risks, and enabling safer space operations.
           </motion.p>
           <motion.div initial={{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{delay:1.7,duration:0.7}} className="flex items-center gap-4 flex-wrap justify-center">
-            <motion.button data-testid="button-request-demo" whileHover={{y:-2, boxShadow:"0 0 30px rgba(56,189,248,0.55)"}} whileTap={{scale:0.97}}
-              className="px-8 py-3.5 rounded-full font-sans font-semibold text-sm tracking-wider text-white cursor-pointer"
-              style={{ backdropFilter:"blur(20px)", background:"rgba(56,189,248,0.15)", border:"1px solid rgba(56,189,248,0.45)", boxShadow:"0 0 20px rgba(56,189,248,0.15)" }}>
-              Request Demo →
-            </motion.button>
-            <motion.button data-testid="button-explore-platform" whileHover={{y:-2}} whileTap={{scale:0.97}}
-              className="px-8 py-3.5 rounded-full font-sans font-semibold text-sm tracking-wider text-white/70 cursor-pointer"
-              style={{ backdropFilter:"blur(10px)", background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.12)" }}>
-              Explore Platform
-            </motion.button>
+            <Link href="/contact">
+              <motion.button data-testid="button-request-demo" whileHover={{y:-2, boxShadow:"0 0 30px rgba(56,189,248,0.55)"}} whileTap={{scale:0.97}}
+                className="px-8 py-3.5 rounded-full font-sans font-semibold text-sm tracking-wider text-white cursor-pointer"
+                style={{ backdropFilter:"blur(20px)", background:"rgba(56,189,248,0.15)", border:"1px solid rgba(56,189,248,0.45)", boxShadow:"0 0 20px rgba(56,189,248,0.15)" }}>
+                Request Demo →
+              </motion.button>
+            </Link>
+            <Link href="/capabilities">
+              <motion.button data-testid="button-explore-platform" whileHover={{y:-2}} whileTap={{scale:0.97}}
+                className="px-8 py-3.5 rounded-full font-sans font-semibold text-sm tracking-wider text-white/70 cursor-pointer"
+                style={{ backdropFilter:"blur(10px)", background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.12)" }}>
+                Explore Platform
+              </motion.button>
+            </Link>
           </motion.div>
         </div>
       </div>

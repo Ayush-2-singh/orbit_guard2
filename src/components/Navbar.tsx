@@ -59,12 +59,14 @@ export default function Navbar() {
         </div>
 
         {/* Desktop CTA */}
-        <motion.button
-          whileHover={{ boxShadow: "0 0 20px rgba(56,189,248,0.4)" }}
-          className="hidden md:block px-6 py-2 rounded-full text-sm font-semibold text-white backdrop-blur-xl bg-sky-500/10 border border-sky-400/40 hover:bg-sky-500/20 transition-all cursor-pointer tracking-wider"
-        >
-          Request Demo
-        </motion.button>
+        <Link href="/contact">
+          <motion.button
+            whileHover={{ boxShadow: "0 0 20px rgba(56,189,248,0.4)" }}
+            className="hidden md:block px-6 py-2 rounded-full text-sm font-semibold text-white backdrop-blur-xl bg-sky-500/10 border border-sky-400/40 hover:bg-sky-500/20 transition-all cursor-pointer tracking-wider"
+          >
+            Request Demo
+          </motion.button>
+        </Link>
 
         {/* Mobile hamburger button */}
         <button
@@ -138,16 +140,18 @@ export default function Navbar() {
 
                 {/* CTA */}
                 <div className="p-4">
-                  <motion.button
-                    whileTap={{ scale: 0.97 }}
-                    className="w-full py-3 rounded-xl text-sm font-bold tracking-wider text-white cursor-pointer"
-                    style={{
-                      background: "rgba(56,189,248,0.12)",
-                      border: "1px solid rgba(56,189,248,0.35)",
-                    }}
-                  >
-                    Request Demo
-                  </motion.button>
+                  <Link href="/contact" onClick={() => setMobileOpen(false)}>
+                    <motion.button
+                      whileTap={{ scale: 0.97 }}
+                      className="w-full py-3 rounded-xl text-sm font-bold tracking-wider text-white cursor-pointer"
+                      style={{
+                        background: "rgba(56,189,248,0.12)",
+                        border: "1px solid rgba(56,189,248,0.35)",
+                      }}
+                    >
+                      Request Demo
+                    </motion.button>
+                  </Link>
                 </div>
               </div>
             </motion.div>
